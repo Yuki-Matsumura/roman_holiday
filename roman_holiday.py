@@ -9,16 +9,15 @@ def cnsl():
   now_dow = "{0:%a}".format(now)
   now_ymd = "{0:%Y/%m/%d}".format(now)
   print("Today" + "          " + now_ymd + "(" + now_dow + ")" + "\n" + "\n")
-  print("1)show holiday list  2)add holiday  3)del holiday  4)Exit")
-
   global result
   result = os.path.exists('holidaylist.db')
   if result == False:
-    print("+===========================================================+")
-    print("| Database file is not exists. First initialize push '0504' |")
-    print("+===========================================================+")
+    dbnotexists()
+  print("+=====================+===============+===============+========+")
+  print("| 1)show holiday list | 2)add holiday | 3)del holiday | 4)Exit |")
+  print("+=====================+===============+===============+========+")
   global num
-  num = input("Please select Number: ")
+  num = input(" Please select Number: ")
 
 
 ##### Chose case #####
@@ -30,7 +29,10 @@ def action():
   elif num == 3:
     delete()
   elif num == 4:
-    print("bye...")
+    os.system('clear')
+    print("+==============================================================+" + '\n' +
+          "|                          See you.                            |")
+    bye()
   elif num == 0504:
     init()
   else:
@@ -43,9 +45,10 @@ def show():
     os.system('clear')
     conn = sqlite3.connect("holidaylist.db")
     c = conn.cursor()
-    select = 'SELECT * FROM daylist'
+    select = 'SELECT * FROM dl'
     for row in c.execute(select):
-      print row[0]
+      print(str(row[0]) + " /" + row[1] + " :" + row[2])
+    bye()
   elif result == False:
     exists()
 
@@ -57,7 +60,7 @@ def add():
     os.system('clear')
     conn = sqlite3.connect("holidaylist.db")
     c = conn.cursor()
-    select = 'SELECT * FROM daylist'
+    select = 'SELECT * FROM dl'
     for row in c.execute(select):
       print row[0]
 ### refact end ###
@@ -71,7 +74,7 @@ def delete():
     os.system('clear')
     conn = sqlite3.connect("holidaylist.db")
     c = conn.cursor()
-    select = 'SELECT * FROM daylist'
+    select = 'SELECT * FROM dl'
     for row in c.execute(select):
       print row[0]
 ### refact end ###
@@ -84,26 +87,48 @@ def init():
   result = os.path.exists('holidaylist.db')
   if result == True:
     os.system('clear')
-    print('+==========================+')
-    print('| Database file is exists. |')
-    print('+==========================+')
+    print('\n' + '+==============================================================+' + '\n' +
+                 '|                  Database file is exists.                    |' + '\n' +
+                 '+==============================================================+')
+    raw_input()
+    os.system('clear')
   elif result == False:
     os.system('clear')
     conn = sqlite3.connect("holidaylist.db")
     c = conn.cursor()
-    create = 'CREATE TABLE daylist(doy varchar(10), dayy datetime)'
+    create = 'CREATE TABLE dl(day DATETIME, dotw VARCHAR(3), desc VARCHAR(50))'
     c.execute(create)
-    print('+===============================+')
-    print('| Create file "holidaylist.db". |')
-    print('+===============================+')
+    print('\n' + '+==============================================================+' + '\n' +
+                 '|              Create file "holidaylist.db".                   |' + '\n' +
+                 '+==============================================================+')
+    raw_input()
+    os.system('clear')
 
 
 ##### Database file is not exists #####
 def exists():
   os.system('clear')
-  print('+==============================+')
-  print('| Database file is not exists. |')
-  print('+==============================+')
+  print('\n' + '+==============================================================+' + '\n' +
+               '|                Database file is not exists.                  |' + '\n' +
+               '+==============================================================+')
+  raw_input()
+  os.system('clear')
+
+
+##### Note #####
+def dbnotexists():
+  print("+==============================================================+" + '\n' +
+        "|                           Note !                             |" + '\n' +
+        "+==============================================================+" + '\n' +
+        "|  Database file is not exists. First initialize push '0504'   |")
+
+
+##### exit? #####
+def bye():
+  print(       '+==============================================================+')
+  raw_input(   '|                 Please push Enter key:                       |' + '\n' +
+               '+==============================================================+')
+  os.system('clear')
 
 
 cnsl()
