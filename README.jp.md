@@ -45,7 +45,7 @@ Ver1.0
 
 1. `/etc/crontab`に実行したいコマンドを記録します。<br>
 _記載例_<br>
-`0 5 * * * root python anne.py sh /home/script/Backup.sh`
+`0 5 * * * root python anne.py sh /home/script/log/hello.sh`
 
 1. cronは休日の実行をスキップします。あなたはスクリプトの実行を手動で止める作業から解放されます。あなたは平和な休日を迎えられます。
 

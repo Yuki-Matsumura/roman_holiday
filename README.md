@@ -45,7 +45,7 @@ Launch the script "Roman Holiday".<br>
 
 1. Record the command you want to execute in `/etc/crontab`.<br>
 _Example_<br>
-`0 5 * * * root python anne.py sh /home/script/Backup.sh`
+`0 5 * * * root python anne.py sh /home/script/log/hello.sh`
 
 1. cron skips the holiday run. You are relieved of the task of manually stopping script execution. You will have a peaceful holiday.
 
